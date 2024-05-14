@@ -1,0 +1,49 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DynamicCheckboxExample extends JFrame {
+    private JPanel panel;
+    private JButton addButton;
+    private int checkboxCount = 0;
+
+    public DynamicCheckboxExample() {
+        setTitle("Dynamic Checkbox Example");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        addButton = new JButton("Add Checkbox");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addCheckbox();
+            }
+        });
+
+        getContentPane().add(panel, BorderLayout.CENTER);
+        getContentPane().add(addButton, BorderLayout.SOUTH);
+    }
+
+    private void addCheckbox() {
+        checkboxCount++;
+        JCheckBox checkBox = new JCheckBox("Checkbox " + checkboxCount);
+        panel.add(checkBox);
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                DynamicCheckboxExample example = new DynamicCheckboxExample();
+                example.setVisible(true);
+            }
+        });
+    }
+}
